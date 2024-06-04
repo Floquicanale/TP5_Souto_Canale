@@ -18,8 +18,8 @@ Segundo, las ciudades podrían estar en una tabla aparte para evitar las inconsc
 **1. Obtener el nombre y la dirección de los pacientes que viven en Buenos Aires.**
 
 Código:
-'''
+```
 SELECT nombre, calle, numero
 FROM pacientes
 WHERE ciudad = 'Buenos Aires' OR ciudad = 'buenos aires';
-'''
+```
