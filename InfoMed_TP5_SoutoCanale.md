@@ -88,3 +88,106 @@ ORDER BY COUNT;
 Salida:
 
 <img width="422" alt="05" src="https://github.com/Floquicanale/TP5_Souto_Canale/assets/92120272/9187532e-b4aa-4838-8a91-68c00a166eb2">
+
+**6. Obtener el nombre del medicamento más recetado junto con la cantidad de recetas
+emitidas para ese medicamento.**
+
+Código:
+```
+SELECT medicamentos.nombre, COUNT(recetas.id_receta) AS cantidad_recetas
+FROM recetas
+INNER JOIN medicamentos
+    ON recetas.id_medicamento = medicamentos.id_medicamento
+GROUP BY medicamentos.nombre
+ORDER BY cantidad_recetas DESC
+LIMIT 1;
+```
+
+Salida:
+
+**7.Obtener el nombre del paciente junto con la fecha de su última consulta y el
+diagnóstico asociado.**
+Código:
+
+```
+SELECT pacientes.nombre, consultas.fecha AS ultima_consulta, consultas.diagnostico
+FROM pacientes
+INNER JOIN consultas 
+    ON pacientes.id_paciente = consultas.id_paciente
+INNER JOIN (
+    SELECT id_paciente, MAX(fecha) AS ultima_fecha
+    FROM consultas
+    GROUP BY id_paciente
+) ultimas_consultas 
+    ON consultas.id_paciente = ultimas_consultas.id_paciente 
+    AND consultas.fecha = ultimas_consultas.ultima_fecha;
+```
+**8.Obtener el nombre del médico junto con el nombre del paciente y el número total de
+consultas realizadas por cada médico para cada paciente, ordenado por médico y
+paciente.**
+
+```
+SELECT 
+ 	medicos.nombre AS nombre_medico,
+    pacientes.nombre AS nombre_paciente,
+    COUNT(consultas.id_consulta) AS total_consultas
+FROM 
+    consultas
+INNER JOIN 
+    pacientes 
+    ON consultas.id_paciente = pacientes.id_paciente
+INNER JOIN 
+    medicos 
+    ON consultas.id_medico = medicos.id_medico
+GROUP BY 
+    medicos.nombre, 
+    pacientes.nombre
+ORDER BY 
+    medicos.nombre, 
+    pacientes.nombre;
+
+```
+
+**9.Obtener el nombre del medicamento junto con el total de recetas prescritas para ese
+medicamento, el nombre del médico que lo recetó y el nombre del paciente al que se
+le recetó, ordenado por total de recetas en orden descendente.**
+
+```
+SELECT 
+	medicamentos.nombre AS nombre_medicamento, 
+	COUNT(recetas.id_receta) AS total_recetas, 
+	medicos.nombre AS nombre_medico, 
+	pacientes.nombre AS nombre_paciente
+FROM recetas
+INNER JOIN medicamentos
+	ON recetas.id_medicamento = medicamentos.id_medicamento
+INNER JOIN medicos
+	ON recetas.id_medico = medicos.id_medico
+INNER JOIN pacientes
+	ON recetas.id_paciente = pacientes.id_paciente
+GROUP BY 
+	medicamentos.nombre, 
+	medicos.nombre, 
+	pacientes.nombre
+ORDER BY total_recetas DESC
+
+```
+
+**10.Obtener el nombre del médico junto con el total de pacientes a los que ha atendido,
+ordenado por el total de pacientes en orden descendente.**
+
+```
+SELECT 
+    medicos.nombre AS nombre_medico,
+    COUNT(DISTINCT consultas.id_paciente) AS total_pacientes
+FROM 
+    consultas
+INNER JOIN 
+    medicos 
+    ON consultas.id_medico = medicos.id_medico
+GROUP BY 
+    medicos.nombre
+ORDER BY 
+    total_pacientes DESC;
+
+```
