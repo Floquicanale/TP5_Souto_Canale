@@ -105,6 +105,9 @@ LIMIT 1;
 
 Salida:
 
+<img width="831" alt="image" src="https://github.com/Floquicanale/TP5_Souto_Canale/assets/107826437/4cef4a48-d454-4bad-8b8d-0b2b3c1b74f9">
+
+
 **7.Obtener el nombre del paciente junto con la fecha de su última consulta y el
 diagnóstico asociado.**
 Código:
@@ -122,13 +125,19 @@ INNER JOIN (
     ON consultas.id_paciente = ultimas_consultas.id_paciente 
     AND consultas.fecha = ultimas_consultas.ultima_fecha;
 ```
+
+Salida: 
+
+<img width="835" alt="image" src="https://github.com/Floquicanale/TP5_Souto_Canale/assets/107826437/a83bc1d0-fa6b-4f44-b23b-d3ffa86264bc">
+
 **8.Obtener el nombre del médico junto con el nombre del paciente y el número total de
 consultas realizadas por cada médico para cada paciente, ordenado por médico y
 paciente.**
 
 ```
 SELECT 
- 	medicos.nombre AS nombre_medico,
+
+	medicos.nombre AS nombre_medico,
     pacientes.nombre AS nombre_paciente,
     COUNT(consultas.id_consulta) AS total_consultas
 FROM 
@@ -147,6 +156,11 @@ ORDER BY
     pacientes.nombre;
 
 ```
+
+Salida:
+
+<img width="800" alt="image" src="https://github.com/Floquicanale/TP5_Souto_Canale/assets/107826437/ba8e3d84-2820-4612-9eb0-e70e44d2e5be">
+
 
 **9.Obtener el nombre del medicamento junto con el total de recetas prescritas para ese
 medicamento, el nombre del médico que lo recetó y el nombre del paciente al que se
@@ -172,6 +186,10 @@ GROUP BY
 ORDER BY total_recetas DESC
 
 ```
+Salida:
+
+<img width="826" alt="image" src="https://github.com/Floquicanale/TP5_Souto_Canale/assets/107826437/0271b0a6-0848-434a-b065-d9cb4a6d6c6e">
+
 
 **10.Obtener el nombre del médico junto con el total de pacientes a los que ha atendido,
 ordenado por el total de pacientes en orden descendente.**
@@ -191,3 +209,8 @@ ORDER BY
     total_pacientes DESC;
 
 ```
+
+Salida:
+
+<img width="832" alt="image" src="https://github.com/Floquicanale/TP5_Souto_Canale/assets/107826437/923f9dc7-27a1-4649-bef0-7a2bdeaf6c7c">
+
